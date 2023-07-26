@@ -1,7 +1,10 @@
 "use client";
-
+import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { cleanUser } from "../libs/cleanUser";
+import { UserCard } from "../components/UserCard";
+import { Footer } from "@/components/Footer";
 
 export default function RandomUserPage() {
   //user = null or array of object
@@ -19,6 +22,8 @@ export default function RandomUserPage() {
     //Your code here
     //Process result from api response with map function. Tips use function from /src/libs/cleanUser
     //Then update state with function : setUsers(...)
+    const cleanUsers = users.map((user) => cleanUser(user));
+    setUsers(cleanUsers);
   };
 
   return (
@@ -40,7 +45,18 @@ export default function RandomUserPage() {
       {isLoading && (
         <p className="display-6 text-center fst-italic my-4">Loading ...</p>
       )}
-      {users && !isLoading && users.map(/*code map rendering UserCard here */)}
+      {users &&
+        !isLoading &&
+        users.map((user) => (
+          <UserCard
+            key={user.email}
+            name={user.name}
+            email={user.email}
+            address={user.address}
+            imgUrl={user.imgUrl}
+          />
+        ))}
+      <Footer year="2023" fullName="Patiphan Klinhom" studentId="650610781" />;
     </div>
   );
 }
