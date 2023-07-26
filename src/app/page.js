@@ -56,7 +56,7 @@ export default function RandomUserPage() {
             imgUrl={user.imgUrl}
           />
         ))}
-      <Footer year="2023" fullName="Patiphan Klinhom" studentId="650610781" />;
+      <Footer year="2023" fullName="Patiphan Klinhom" studentId="650610781" />
     </div>
   );
 }
