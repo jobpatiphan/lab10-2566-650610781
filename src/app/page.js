@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
 import { cleanUser } from "../libs/cleanUser";
 import { UserCard } from "../components/UserCard";
 import { Footer } from "@/components/Footer";
@@ -11,6 +12,7 @@ export default function RandomUserPage() {
   const [users, setUsers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [genAmount, setGenAmount] = useState(1);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const generateBtnOnClick = async () => {
     setIsLoading(true);
@@ -20,11 +22,24 @@ export default function RandomUserPage() {
     setIsLoading(false);
     const users = resp.data.results;
     //Your code here
-    //Process result from api response with map function. Tips use function from /src/libs/cleanUser
+    //Process result from api response with map ห
+    //function. Tips use function from /src/libs/cleanUser
     //Then update state with function : setUsers(...)
     const User = users.map((user) => cleanUser(user));
     setUsers(User);
   };
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      setIsFirstLoad(false);
+      return;
+    }
+    localStorage.setItem("genAmount", genAmount);
+  }, [isFirstLoad, genAmount]);
+
+  useEffect(() => {
+    setGenAmount(localStorage.getItem("genAmount") || 1);
+  }, []);
 
   return (
     <div style={{ maxWidth: "700px" }} className="mx-auto">
