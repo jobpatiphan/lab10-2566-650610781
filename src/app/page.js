@@ -22,8 +22,8 @@ export default function RandomUserPage() {
     //Your code here
     //Process result from api response with map function. Tips use function from /src/libs/cleanUser
     //Then update state with function : setUsers(...)
-    const cleanUsers = users.map((user) => cleanUser(user));
-    setUsers(cleanUsers);
+    const User = users.map((user) => cleanUser(user));
+    setUsers(User);
   };
 
   return (
